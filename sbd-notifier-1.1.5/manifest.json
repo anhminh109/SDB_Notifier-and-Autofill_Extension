@@ -2,8 +2,8 @@
   "manifest_version": 3,
   "minimum_chrome_version": "120",
   "name": "SBD — Chọn Zoom · Tự x & ghi chú",
-  "version": "1.1.5",
-  "description": "Theo dõi SBD, tên và bài đã nộp; tự ghi chữ x và ghi chú cả dòng nguồn vào ô Nộp Bài.",
+  "version": "1.1.6",
+  "description": "Theo dõi bài nộp TIMO theo Zoom; khớp SBD hoặc đủ 5 thông tin, tự điền x, ghi chú bài và đánh dấu sai SBD.",
   "permissions": [
     "storage",
     "alarms",
