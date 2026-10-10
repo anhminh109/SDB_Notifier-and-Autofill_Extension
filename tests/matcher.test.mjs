@@ -13,7 +13,7 @@ const target=[
  ['52','OK002','Trần Thị Bình','Nữ','01.01.2018','Tiểu học B','Đà Nẵng','','']
 ];
 const sourceCol={ri:0,ci:0,ti:6},targetCol={ri:0,ci:1};
-const resolution=resolveSubmissions(source,sourceCol,target,targetCol,0,'52',{});
+const resolution=resolveSubmissions(source,sourceCol,target,targetCol,0,'52',{sourceIdentity:{name:'Z'},targetIdentity:{name:'Y'}});
 assert.equal(resolution.entries.length,2);
 assert.equal(resolution.entries[0].sbd,'DUNG001');
 assert.equal(resolution.entries[0].matchMethod,'identity');

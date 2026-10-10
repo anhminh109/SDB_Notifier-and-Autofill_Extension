@@ -27,8 +27,8 @@ export function identityColumn(rows,header,field,override=''){
  return found.length===1?found[0]:-1;
 }
 
-export function identityColumns(rows,header,overrides={}){
- return Object.fromEntries(identityFields.map(field=>[field,identityColumn(rows,header,field,overrides[field]||'')]));
+export function identityColumns(rows,header){
+ return Object.fromEntries(identityFields.map(field=>[field,identityColumn(rows,header,field)]));
 }
 
 function year(value){
@@ -51,8 +51,8 @@ function identityOf(row,columns){return identityFields.map(field=>identityValue(
 function identityKey(values){return values.every(Boolean)?JSON.stringify(values):'';}
 
 export function resolveSubmissions(sourceRows,sourceCol,targetRows,targetCol,zoomCi,wanted,config={}){
- const sourceColumns=identityColumns(sourceRows,sourceCol.ri,config.sourceIdentity||{});
- const targetColumns=identityColumns(targetRows,targetCol.ri,config.targetIdentity||{});
+ const sourceColumns=identityColumns(sourceRows,sourceCol.ri);
+ const targetColumns=identityColumns(targetRows,targetCol.ri);
  const missing=identityFields.filter(field=>sourceColumns[field]<0||targetColumns[field]<0);
  const warning=missing.length?`Chưa xác định đủ cột đối chiếu: ${missing.map(field=>aliases[field][0]).join(', ')}. Các SBD sai sẽ cần kiểm tra thủ công.`:'';
  const wantedZoom=zoomValue(wanted),targetBySbd=new Map(),targetByIdentity=new Map();
