@@ -1,0 +1,22 @@
+1.1.5 — ĐIỀN x + NOTE CẢ DÒNG NGUỒN
+Nếu đã có OAuth ở 1.1.2/v2: giữ Client ID, chép vào manifest.json bản này rồi Reload. Trường key/ID extension giữ nguyên như bản tự ghi trước.
+
+THIẾT LẬP GOOGLE MỘT LẦN (BẮT BUỘC CHO BẢN TỰ GHI)
+Thông báo vẫn dùng CSV như v1. Tự ghi cần OAuth Client ID của bạn theo các bước bên dưới. Không gửi mật khẩu hoặc client secret cho ai.
+
+1. Giải nén, mở chrome://extensions, bật Developer mode, Load unpacked thư mục sbd-notifier-1.1.5.
+2. ID extension cố định của bản này: gheeppbbpojbcjijlpnlbjmonejdooek
+   Kiểm tra ID trên chrome://extensions phải trùng. Không sửa trường key trong manifest.
+3. Vào https://console.cloud.google.com/ bằng tài khoản Google của bạn, tạo/chọn một project. Bật Google Sheets API trong APIs & Services > Library.
+4. Cấu hình Google Auth Platform/OAuth consent screen: tên app tùy chọn, email của bạn; Audience External nếu tài khoản cá nhân; để Testing và thêm chính email dùng đọc/ghi sheet vào Test users. Với Workspace, có thể dùng Internal nếu tổ chức cho phép.
+5. Trong Data Access, thêm scope https://www.googleapis.com/auth/spreadsheets. Scope này cho phép đọc/ghi spreadsheet tài khoản có quyền truy cập; code chỉ dùng hai file bạn cấu hình. Nếu chính sách tổ chức chặn OAuth, cần quản trị viên cho phép.
+6. Trong Clients/Credentials > Create OAuth client ID, chọn loại Chrome Extension (Chrome app nếu giao diện ghi tên cũ). Application ID dùng đúng ID ở bước 2. Không chọn Web application.
+7. Copy Client ID dạng ....apps.googleusercontent.com. Mở manifest.json bằng Notepad; thay REPLACE_WITH_YOUR_CLIENT_ID.apps.googleusercontent.com bằng Client ID đó, giữ nguyên dấu nháy.
+8. Lưu file; ở chrome://extensions bấm Reload extension. Mở extension, bấm Kết nối Google và cấp quyền. Chrome profile cần đăng nhập tài khoản Google phù hợp. Khi Testing, Google có thể hiển thị cảnh báo app chưa được xác minh; chỉ tiếp tục nếu project/app chính bạn tạo đúng các bước này. Không cần publish app cho dùng cá nhân.
+9. Dán link đúng tab của hai sheet có gid. Bật checkbox Tự thêm ghi chú... rồi Lưu & bắt đầu ca mới.
+
+
+Kết quả là chữ x và NOTE trong chính ô Nộp Bài, tương đương Shift+F2. Không dùng clipboard hoặc bấm phím. Nội dung lấy toàn bộ giá trị hiển thị trong hàng nguồn, kể cả cột ẩn, cách nhau bằng tab. Không chép công thức hay định dạng hàng.
+Chỉ cập nhật SBD của Zoom đã chọn, cả bài nộp trước lúc bật. Có nhiều lượt nộp: lấy hàng nguồn cuối cùng. Có note cũ: giữ nguyên, không ghi đè; cần kiểm tra thủ công nếu khác nội dung hoặc chưa có x. SBD trùng nhiều dòng điểm danh: bỏ qua. Ô công thức/checkbox/data validation không hỗ trợ chữ x: bỏ qua.
+Tối đa 40 ô/lần, các ô còn lại xử lý lượt sau. Ghi x và note trong cùng request. Lỗi API sẽ thử lại, thông báo bài mới vẫn chạy.
+Không sắp xếp/chèn/xóa hàng khi tự ghi (kể cả người cộng tác). Extension đọc lại sheet ngay trước ghi, nhưng không thể khóa thay đổi đồng thời trên Google Sheets.

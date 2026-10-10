@@ -1,0 +1,41 @@
+{
+  "manifest_version": 3,
+  "minimum_chrome_version": "120",
+  "name": "SBD — Chọn Zoom · Tự x & ghi chú",
+  "version": "1.1.5",
+  "description": "Theo dõi SBD, tên và bài đã nộp; tự ghi chữ x và ghi chú cả dòng nguồn vào ô Nộp Bài.",
+  "permissions": [
+    "storage",
+    "alarms",
+    "notifications",
+    "scripting",
+    "tabs",
+    "identity"
+  ],
+  "host_permissions": [
+    "https://docs.google.com/*",
+    "https://*.googleusercontent.com/*",
+    "https://sheets.googleapis.com/*"
+  ],
+  "optional_host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Mở theo dõi SBD"
+  },
+  "icons": {
+    "128": "icon.png"
+  },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhhO0pzrz3n3JCilpHoWnmKMw/Wkmd0x/DZ4RJaNeqAu9PVLmjbI+Y9pNMBJUFHWPzjvARgm8FQd0aHPLKHZ4bruStXt4oGwSjrwiCXRlXDJMXwLnYw1P2LP2indfKDEwMzADvvQ3da5OwZ7ulMhBd51nCSkK4gv4fOSTQk+rR681OjgO7mSTKkYVo+Kthig8+ngjt6tTbvRrhlPSwsEQWRgk8xh/aXQRpG2TPNQm9DBKtB6kO7D57lO6oTlMCqlmET1wv+EyZwvAkyD4czFL/yD4VhOFhIDRZtSNoW0jiaQCWlPAOoYe5Ep4hTzxxsi/WbKmgilIXRJ4Al33o+0N9wIDAQAB",
+  "oauth2": {
+    "client_id": "483826966485-lvk877grp76a1jkru1tdjji6bg20o3al.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/spreadsheets"
+    ]
+  }
+}

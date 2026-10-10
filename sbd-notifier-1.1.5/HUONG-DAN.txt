@@ -1,0 +1,10 @@
+1.1.5 — CHỌN ZOOM + HỌ TÊN + TỰ x VÀ GHI CHÚ
+1. Tắt extension cũ; Load unpacked thư mục sbd-notifier-1.1.5.
+2. Làm HUONG-DAN-OAUTH.txt để cấp quyền tự ghi (hoặc dùng lại Client ID ở 1.1.2).
+3. Kết nối Google, nhập hai link đúng ca, Zoom cần theo dõi.
+4. Bật Tự điền x và thêm ghi chú, Lưu & bắt đầu ca mới.
+5. Kiểm tra cột Tự ghi trong danh sách: Đã điền x + ghi chú / Chưa ghi / Cần kiểm tra.
+Dùng đúng tab bài nộp của ca hiện tại. Giữ hai tab sheet và tab theo dõi mở.
+Nếu chưa cấp quyền, bỏ chọn tự ghi để dùng thông báo/danh sách như 1.1.4.
+Bài đã nộp trước lúc bật vẫn được cập nhật. Bài mới vẫn thông báo.
+Chưa thử OAuth/ghi sheet thật của bạn; đã kiểm tra bằng dữ liệu giả lập.
