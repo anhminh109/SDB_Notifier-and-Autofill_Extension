@@ -61,4 +61,14 @@ const dottedDob=resolveSubmissions(bilingualSource,bilingualCol,dottedDobTarget,
 assert.equal(dottedDob.warning,'');
 assert.equal(dottedDob.entries[0].sbd,'T188060');
 
+const splitHeaderTarget=[
+ ['','','','DOB','','','',''],
+ ['ZOOM','SBD','Họ tên','','Trường','Tỉnh','Nộp Bài','Ghi chú'],
+ ['52','T188060','CAO HÀ MY','27/10/2017','Tiểu học Yên Từ A','Ninh Bình','','để sai sbd']
+];
+const splitHeader=resolveSubmissions(bilingualSource,bilingualCol,splitHeaderTarget,{ri:1,ci:1},0,'52',{});
+assert.equal(splitHeader.warning,'');
+assert.equal(splitHeader.entries.length,1);
+assert.equal(splitHeader.entries[0].sbd,'T188060');
+
 console.log('matcher tests: PASS');

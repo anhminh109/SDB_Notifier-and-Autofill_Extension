@@ -25,8 +25,13 @@ export function identityColumn(rows,header,field,override=''){
  if(manual>=0){if(manual>=rows[header].length)throw Error(`Cột ${aliases[field][0]} nằm ngoài dữ liệu.`);return manual;}
  const accepted=new Set(aliases[field]);
  const compactAccepted=new Set([...accepted].map(value=>value.replace(/\s+/g,'')));
- const found=[];rows[header].forEach((value,index)=>{const normalized=normalizedHeader(value);if(accepted.has(normalized)||compactAccepted.has(normalized.replace(/\s+/g,'')))found.push(index);});
- return found.length===1?found[0]:-1;
+ const matches=value=>{const normalized=normalizedHeader(value);return accepted.has(normalized)||compactAccepted.has(normalized.replace(/\s+/g,''));};
+ const sameRow=[];(rows[header]||[]).forEach((value,index)=>{if(matches(value))sameRow.push(index);});
+ if(sameRow.length===1)return sameRow[0];
+ if(sameRow.length>1)return -1;
+ const foundColumns=new Set();
+ for(let row=0;row<Math.min(rows.length,50);row++)(rows[row]||[]).forEach((value,index)=>{if(matches(value))foundColumns.add(index);});
+ return foundColumns.size===1?[...foundColumns][0]:-1;
 }
 
 export function identityColumns(rows,header){
