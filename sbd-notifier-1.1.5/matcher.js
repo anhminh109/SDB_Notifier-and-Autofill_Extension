@@ -4,11 +4,11 @@ export const identityFields=['name','gender','birth','school','province'];
 const requiredIdentityFields=['name','birth','school','province'];
 
 const aliases={
- name:['ho va ten','ho ten','ten thi sinh','ho va ten thi sinh','ho ten thi sinh','full name','candidate name','candidate full name','name','ten'],
- gender:['gioi tinh','gender','sex'],
- birth:['ngay sinh','nam sinh','date of birth','birth date','birth year','dob'],
- school:['truong','truong hoc','ten truong','school','school name'],
- province:['tinh','tinh thanh','tinh/thanh pho','tinh thanh pho','province','city','province/city']
+ name:['ho va ten','ho ten','ten thi sinh','ho va ten thi sinh','ho ten thi sinh','full name','full name ho va ten thi sinh','candidate name','candidate full name','name','ten'],
+ gender:['gioi tinh','gender','gender gioi tinh','sex'],
+ birth:['ngay sinh','ngay thang nam sinh','nam sinh','date of birth','date of birth ngay thang nam sinh','birth date','birth year','dob'],
+ school:['truong','truong hoc','ten truong','school','school truong','school name'],
+ province:['tinh','tinh thanh','tinh thanh pho','province','province tinh','city','province city']
 };
 
 function columnIndex(value,label){
@@ -18,7 +18,7 @@ function columnIndex(value,label){
  return index-1;
 }
 
-function normalizedHeader(value){return norm(value).replace(/[:*]/g,'').replace(/[()]/g,' ').replace(/\s+/g,' ').trim();}
+function normalizedHeader(value){return norm(value).replace(/[^a-z0-9]+/g,' ').replace(/\s+/g,' ').trim();}
 
 export function identityColumn(rows,header,field,override=''){
  const manual=columnIndex(override,aliases[field]?.[0]||field);
@@ -54,10 +54,15 @@ function identityKey(values){return values.every(Boolean)?JSON.stringify(values)
 export function resolveSubmissions(sourceRows,sourceCol,targetRows,targetCol,zoomCi,wanted,config={}){
  const sourceColumns=identityColumns(sourceRows,sourceCol.ri);
  const targetColumns=identityColumns(targetRows,targetCol.ri);
- const missing=requiredIdentityFields.filter(field=>sourceColumns[field]<0||targetColumns[field]<0);
+ const missingSource=requiredIdentityFields.filter(field=>sourceColumns[field]<0);
+ const missingTarget=requiredIdentityFields.filter(field=>targetColumns[field]<0);
+ const missing=[...new Set([...missingSource,...missingTarget])];
  const compareFields=[...requiredIdentityFields];
  if(sourceColumns.gender>=0&&targetColumns.gender>=0)compareFields.splice(1,0,'gender');
- const warning=missing.length?`Chưa xác định đủ cột đối chiếu bắt buộc: ${missing.map(field=>aliases[field][0]).join(', ')}. Các SBD sai sẽ cần kiểm tra thủ công.`:'';
+ const warning=[
+  missingSource.length?`Sheet nộp bài thiếu cột: ${missingSource.map(field=>aliases[field][0]).join(', ')}`:'',
+  missingTarget.length?`Sheet điểm danh thiếu cột: ${missingTarget.map(field=>aliases[field][0]).join(', ')}`:''
+ ].filter(Boolean).join(' · ');
  const wantedZoom=zoomValue(wanted),targetBySbd=new Map(),targetByIdentity=new Map();
  for(let index=targetCol.ri+1;index<targetRows.length;index++){
   const row=targetRows[index];if(zoomValue(row[zoomCi])!==wantedZoom)continue;

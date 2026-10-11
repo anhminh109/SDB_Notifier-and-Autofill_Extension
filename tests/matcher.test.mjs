@@ -40,4 +40,19 @@ assert.equal(withoutGender.entries.length,2);
 assert.equal(withoutGender.entries[0].sbd,'DUNG001');
 assert.deepEqual(withoutGender.compareFields,['name','birth','school','province']);
 
+const bilingualSource=[
+ ['Dấu thời gian','Candidate number (Số báo danh)','Full name (Họ và tên thí sinh)','Gender (Giới tính)','Date of birth (Ngày, tháng, năm sinh)','School (Trường)','Province (Tỉnh)'],
+ ['11/10/2026 8:26:22','T - 306040','Cao Hà My','Female / Nữ','27/10/2017','tiểu học yên từ A','Ninh Bình']
+];
+const bilingualCol={ri:0,ci:1,ti:0};
+const myTarget=[
+ ['ZOOM','SBD','Họ tên','Ngày sinh','Trường','Tỉnh','Nộp Bài','Ghi chú'],
+ ['52','T188060','CAO HÀ MY','27/10/2017','Tiểu học Yên Từ A','Ninh Bình','','để sai sbd']
+];
+const bilingual=resolveSubmissions(bilingualSource,bilingualCol,myTarget,{ri:0,ci:1},0,'52',{});
+assert.equal(bilingual.warning,'');
+assert.equal(bilingual.entries.length,1);
+assert.equal(bilingual.entries[0].sbd,'T188060');
+assert.equal(bilingual.entries[0].matchMethod,'identity');
+
 console.log('matcher tests: PASS');
