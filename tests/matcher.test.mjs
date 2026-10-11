@@ -13,7 +13,7 @@ const target=[
  ['52','OK002','Trần Thị Bình','Nữ','01.01.2018','Tiểu học B','Đà Nẵng','','']
 ];
 const sourceCol={ri:0,ci:0,ti:6},targetCol={ri:0,ci:1};
-const resolution=resolveSubmissions(source,sourceCol,target,targetCol,0,'52',{sourceIdentity:{name:'Z'},targetIdentity:{name:'Y'}});
+const resolution=resolveSubmissions(source,sourceCol,target,targetCol,0,'52',{sourceIdentity:{name:'Z'}});
 assert.equal(resolution.entries.length,2);
 assert.equal(resolution.entries[0].sbd,'DUNG001');
 assert.equal(resolution.entries[0].matchMethod,'identity');
@@ -70,5 +70,11 @@ const splitHeader=resolveSubmissions(bilingualSource,bilingualCol,splitHeaderTar
 assert.equal(splitHeader.warning,'');
 assert.equal(splitHeader.entries.length,1);
 assert.equal(splitHeader.entries[0].sbd,'T188060');
+
+const manualDobTarget=myTarget.map(row=>[...row]);
+manualDobTarget[0][3]='Ngày tháng';
+const manualDob=resolveSubmissions(bilingualSource,bilingualCol,manualDobTarget,{ri:0,ci:1},0,'52',{targetIdentity:{birth:'D'}});
+assert.equal(manualDob.warning,'');
+assert.equal(manualDob.entries[0].sbd,'T188060');
 
 console.log('matcher tests: PASS');

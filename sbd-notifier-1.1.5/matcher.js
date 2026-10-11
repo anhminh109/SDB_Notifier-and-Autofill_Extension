@@ -34,8 +34,8 @@ export function identityColumn(rows,header,field,override=''){
  return foundColumns.size===1?[...foundColumns][0]:-1;
 }
 
-export function identityColumns(rows,header){
- return Object.fromEntries(identityFields.map(field=>[field,identityColumn(rows,header,field)]));
+export function identityColumns(rows,header,overrides={}){
+ return Object.fromEntries(identityFields.map(field=>[field,identityColumn(rows,header,field,overrides[field]||'')]));
 }
 
 function year(value){
@@ -59,7 +59,7 @@ function identityKey(values){return values.every(Boolean)?JSON.stringify(values)
 
 export function resolveSubmissions(sourceRows,sourceCol,targetRows,targetCol,zoomCi,wanted,config={}){
  const sourceColumns=identityColumns(sourceRows,sourceCol.ri);
- const targetColumns=identityColumns(targetRows,targetCol.ri);
+ const targetColumns=identityColumns(targetRows,targetCol.ri,config.targetIdentity||{});
  const missingSource=requiredIdentityFields.filter(field=>sourceColumns[field]<0);
  const missingTarget=requiredIdentityFields.filter(field=>targetColumns[field]<0);
  const missing=[...new Set([...missingSource,...missingTarget])];
