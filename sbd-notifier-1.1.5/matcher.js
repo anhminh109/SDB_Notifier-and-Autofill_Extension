@@ -24,7 +24,8 @@ export function identityColumn(rows,header,field,override=''){
  const manual=columnIndex(override,aliases[field]?.[0]||field);
  if(manual>=0){if(manual>=rows[header].length)throw Error(`Cột ${aliases[field][0]} nằm ngoài dữ liệu.`);return manual;}
  const accepted=new Set(aliases[field]);
- const found=[];rows[header].forEach((value,index)=>{if(accepted.has(normalizedHeader(value)))found.push(index);});
+ const compactAccepted=new Set([...accepted].map(value=>value.replace(/\s+/g,'')));
+ const found=[];rows[header].forEach((value,index)=>{const normalized=normalizedHeader(value);if(accepted.has(normalized)||compactAccepted.has(normalized.replace(/\s+/g,'')))found.push(index);});
  return found.length===1?found[0]:-1;
 }
 

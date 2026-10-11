@@ -55,4 +55,10 @@ assert.equal(bilingual.entries.length,1);
 assert.equal(bilingual.entries[0].sbd,'T188060');
 assert.equal(bilingual.entries[0].matchMethod,'identity');
 
+const dottedDobTarget=myTarget.map(row=>[...row]);
+dottedDobTarget[0][3]='D.O.B';
+const dottedDob=resolveSubmissions(bilingualSource,bilingualCol,dottedDobTarget,{ri:0,ci:1},0,'52',{});
+assert.equal(dottedDob.warning,'');
+assert.equal(dottedDob.entries[0].sbd,'T188060');
+
 console.log('matcher tests: PASS');
