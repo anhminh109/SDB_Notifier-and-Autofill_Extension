@@ -33,4 +33,11 @@ const ambiguousResult=resolveSubmissions(source,sourceCol,ambiguous,targetCol,0,
 assert.equal(ambiguousResult.entries.length,1);
 assert.match(ambiguousResult.issues[0].reason,/nhiều thí sinh/);
 
+const targetWithoutGender=target.map(row=>row.filter((_,index)=>index!==3));
+const withoutGenderCol={ri:0,ci:1};
+const withoutGender=resolveSubmissions(source,sourceCol,targetWithoutGender,withoutGenderCol,0,'52',{});
+assert.equal(withoutGender.entries.length,2);
+assert.equal(withoutGender.entries[0].sbd,'DUNG001');
+assert.deepEqual(withoutGender.compareFields,['name','birth','school','province']);
+
 console.log('matcher tests: PASS');
